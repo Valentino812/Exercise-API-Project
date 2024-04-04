@@ -45,13 +45,15 @@ async function getUser(request, response, next) {
  * @param {object} next - Express route middlewares
  * @returns {object} Response object or pass an error to the next route
  */
+
 async function createUser(request, response, next) {
   try {
     const name = request.body.name;
     const email = request.body.email;
     const password = request.body.password;
+    const confirmPassword = request.body.confirmPassword; //KODE BARU 
 
-    //KODE BARU
+    //KODE BARU untuk melakukan verifikasi email yang telah diterima
     const emailExists = await usersService.verifyEmail(email);
     if (emailExists) {
       throw errorResponder(
@@ -59,7 +61,14 @@ async function createUser(request, response, next) {
         'Email is already used'
       );
     }
-    //KODE BARU SELESAI
+
+    //KODE BARU untuk melakukan verifikasi password konfirmasi
+    if(password != confirmPassword){
+      throw errorResponder(
+        errorTypes.INVALID_PASSWORD,
+        'The password confirmation does not match'
+      );
+    }
 
     const success = await usersService.createUser(name, email, password);
     if (!success) {
@@ -88,7 +97,7 @@ async function updateUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
 
-    //KODE BARU
+    //KODE BARU untuk melakukan verifikasi email yang telah diterima
     const emailExists = await usersService.verifyEmail(email);
     if (emailExists) {
       throw errorResponder(
@@ -96,7 +105,6 @@ async function updateUser(request, response, next) {
         'Email is already used'
       );
     }
-    //KODE BARU SELESAI
 
     const success = await usersService.updateUser(id, name, email);
     if (!success) {

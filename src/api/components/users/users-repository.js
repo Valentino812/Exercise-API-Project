@@ -22,6 +22,7 @@ async function getUser(id) {
  * @param {string} name - Name
  * @param {string} email - Email
  * @param {string} password - Hashed password
+ * @param {string} confirmPassword //KODE BARU untuk konfirmasi password
  * @returns {Promise}
  */
 async function createUser(name, email, password) {
@@ -29,6 +30,7 @@ async function createUser(name, email, password) {
     name,
     email,
     password,
+    confirmPassword, //KODE BARU
   });
 }
 
