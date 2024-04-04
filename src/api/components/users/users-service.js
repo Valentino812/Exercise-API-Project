@@ -107,10 +107,17 @@ async function deleteUser(id) {
   return true;
 }
 
+//KODE BARU
+function verifyEmail(email){
+  return usersRepository.checkEmail(email);
+}
+//KODE BARU SELESAI
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   updateUser,
   deleteUser,
+  verifyEmail, //KODE BARU
 };

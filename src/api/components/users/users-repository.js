@@ -62,10 +62,18 @@ async function deleteUser(id) {
   return User.deleteOne({ _id: id });
 }
 
+//KODE BARU
+async function checkEmail(email) {
+  const user = await User.findOne({ email });
+  return !!user; 
+}
+//KODE BARU SELESAI
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   updateUser,
   deleteUser,
+  checkEmail, //KODE BARU
 };
