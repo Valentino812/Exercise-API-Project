@@ -62,12 +62,11 @@ async function deleteUser(id) {
   return User.deleteOne({ _id: id });
 }
 
-//KODE BARU
+//KODE BARU untuk mengecek keberadaan email
 async function checkEmail(email) {
   const user = await User.findOne({ email });
   return !!user; 
 }
-//KODE BARU SELESAI
 
 module.exports = {
   getUsers,

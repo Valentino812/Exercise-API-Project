@@ -107,11 +107,10 @@ async function deleteUser(id) {
   return true;
 }
 
-//KODE BARU
+//KODE BARU untuk verifikasi email
 function verifyEmail(email){
   return usersRepository.checkEmail(email);
 }
-//KODE BARU SELESAI
 
 module.exports = {
   getUsers,
