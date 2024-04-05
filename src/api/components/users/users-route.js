@@ -35,7 +35,7 @@ module.exports = (app) => {
   // Delete user
   route.delete('/:id', authenticationMiddleware, usersControllers.deleteUser);
 
-  //KODE BARU untuk change passowrd
+  //membuat route baru untuk mengubah password
   route.patch(
     '/:id/change-password',
     authenticationMiddleware,

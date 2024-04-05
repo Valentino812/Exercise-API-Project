@@ -17,7 +17,7 @@ module.exports = {
     },
   },
 
-  //KODE BARU untuk validasi pada change change password
+  //validasi pada change password
   changePassword: {
     body: {
       oldPassword: joi.string().min(6).max(32).required().label('OldPassword'),

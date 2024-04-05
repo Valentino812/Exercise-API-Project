@@ -107,12 +107,12 @@ async function deleteUser(id) {
   return true;
 }
 
-//KODE BARU untuk verifikasi email
+//melakukan verifikasi email
 function verifyEmail(email) {
   return usersRepository.checkEmail(email);
 }
 
-//KODE BARU untuk mengubah password
+//mengubah password user dengan id terkait
 async function changePassword(id, newPassword) {
   const user = await usersRepository.getUser(id);
   const hashedPassword = await hashPassword(newPassword);
@@ -130,7 +130,7 @@ async function changePassword(id, newPassword) {
   return true;
 }
 
-//KODE BARU untuk verifikasi password
+//melakukan verifikasi password
 function verifyPassword(id, password) {
   return usersRepository.checkPassword(id, password);
 }
@@ -141,7 +141,7 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-  verifyEmail, //KODE BARU
-  changePassword, //KODE BARU
-  verifyPassword, //KODE BARU
+  verifyEmail, 
+  changePassword, 
+  verifyPassword, 
 };

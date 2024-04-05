@@ -1,5 +1,5 @@
 const { User } = require('../../../models');
-const { passwordMatched } = require('../../../utils/password'); //KODE BARU untuk mengambil function passwordMatched
+const { passwordMatched } = require('../../../utils/password'); //mengambil function passwordMatched di password.js
 
 /**
  * Get a list of users
@@ -63,13 +63,13 @@ async function deleteUser(id) {
   return User.deleteOne({ _id: id });
 }
 
-//KODE BARU untuk mengecek keberadaan email
+//mengecek keberadaan email yang sama pada database
 async function checkEmail(email) {
   const user = await User.findOne({ email });
   return !!user; 
 }
 
-//KODE BARU untuk mengecek kebenaran password
+//mengecek kebenaran dari password dengan id terkait
 async function checkPassword(id, password) {
   //mengambil data user
   const user = await User.findById(id);
@@ -83,6 +83,7 @@ async function checkPassword(id, password) {
   return !!matchedPassword; 
 }
 
+//mengubah password dari user dengan id terkait pada database
 /**
  * Change existing password
  * @param {string} id - User ID
@@ -108,7 +109,7 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-  checkEmail, //KODE BARU
-  checkPassword, //KODE BARU
+  checkEmail, 
+  checkPassword, 
   changePassword,
 };

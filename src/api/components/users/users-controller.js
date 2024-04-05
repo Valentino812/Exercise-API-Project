@@ -51,9 +51,9 @@ async function createUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
     const password = request.body.password;
-    const confirmPassword = request.body.confirmPassword; //KODE BARU 
+    const confirmPassword = request.body.confirmPassword; 
 
-    //KODE BARU untuk melakukan verifikasi email yang telah diterima
+    //melakukan verifikasi email yang telah diterima
     const emailExists = await usersService.verifyEmail(email);
     if (emailExists) {
       throw errorResponder(
@@ -62,7 +62,7 @@ async function createUser(request, response, next) {
       );
     }
 
-    //KODE BARU untuk melakukan verifikasi password konfirmasi
+    //melakukan verifikasi password konfirmasi
     if(password != confirmPassword){
       throw errorResponder(
         errorTypes.INVALID_PASSWORD,
@@ -97,7 +97,7 @@ async function updateUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
 
-    //KODE BARU untuk melakukan verifikasi email yang telah diterima
+    //melakukan verifikasi email yang telah diterima
     const emailExists = await usersService.verifyEmail(email);
     if (emailExists) {
       throw errorResponder(
@@ -145,7 +145,7 @@ async function deleteUser(request, response, next) {
   }
 }
 
-//KODE BARU untuk mengubah password
+//mengubah password
 /**
  * Handle update user request
  * @param {object} request - Express request object
@@ -160,6 +160,7 @@ async function changePassword(request, response, next) {
     const newPassword = request.body.newPassword;
     const confirmPassword = request.body.confirmPassword;
 
+    //melakukan verifikasi password konfirmasi
     if(newPassword != confirmPassword){
       throw errorResponder(
         errorTypes.INVALID_PASSWORD,
@@ -167,6 +168,7 @@ async function changePassword(request, response, next) {
       );
     }
 
+    //melakukan pengecekan kebenaran old password
     const passwordCorrect = await usersService.verifyPassword(id, oldPassword);
     if (!passwordCorrect) {
       throw errorResponder(
