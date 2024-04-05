@@ -25,7 +25,7 @@ async function getUser(id) {
  * @param {string} confirmPassword //KODE BARU untuk konfirmasi password
  * @returns {Promise}
  */
-async function createUser(name, email, password) {
+async function createUser(name, email, password, confirmPassword) {
   return User.create({
     name,
     email,
