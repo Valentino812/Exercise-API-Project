@@ -16,4 +16,13 @@ module.exports = {
       email: joi.string().email().required().label('Email'),
     },
   },
+
+  //KODE BARU untuk validasi pada change change password
+  changePassword: {
+    body: {
+      oldPassword: joi.string().min(6).max(32).required().label('OldPassword'),
+      newPassword: joi.string().min(6).max(32).required().label('NewPassword'),
+      confirmPassword: joi.string().min(6).max(32).required().label('ConfirmPassword'),
+    },
+  },
 };

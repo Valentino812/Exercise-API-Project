@@ -1,4 +1,5 @@
 const { User } = require('../../../models');
+const { passwordMatched } = require('../../../utils/password'); //KODE BARU untuk mengambil function passwordMatched
 
 /**
  * Get a list of users
@@ -22,20 +23,18 @@ async function getUser(id) {
  * @param {string} name - Name
  * @param {string} email - Email
  * @param {string} password - Hashed password
- * @param {string} confirmPassword //KODE BARU untuk konfirmasi password
  * @returns {Promise}
  */
-async function createUser(name, email, password, confirmPassword) {
+async function createUser(name, email, password) {
   return User.create({
     name,
     email,
     password,
-    confirmPassword, //KODE BARU
   });
 }
 
 /**
- * Update existing user
+ * Update existing password
  * @param {string} id - User ID
  * @param {string} name - Name
  * @param {string} email - Email
@@ -70,6 +69,39 @@ async function checkEmail(email) {
   return !!user; 
 }
 
+//KODE BARU untuk mengecek kebenaran password
+async function checkPassword(id, password) {
+  //mengambil data user
+  const user = await User.findById(id);
+
+  //bila user tidak ditemukan, maka return false
+  if (!user) {
+    return false;
+  }
+  //melakukan komparasi password yang dimasukan dengan password user yang telah di hash
+  const matchedPassword = await passwordMatched(password, user.password)
+  return !!matchedPassword; 
+}
+
+/**
+ * Change existing password
+ * @param {string} id - User ID
+ * @param {string} password - New Password
+ * @returns {Promise}
+ */
+async function changePassword(id, password) {
+  return User.updateOne(
+    {
+      _id: id,
+    },
+    {
+      $set: {
+        password,
+      },
+    }
+  );
+}
+
 module.exports = {
   getUsers,
   getUser,
@@ -77,4 +109,6 @@ module.exports = {
   updateUser,
   deleteUser,
   checkEmail, //KODE BARU
+  checkPassword, //KODE BARU
+  changePassword,
 };

@@ -108,8 +108,31 @@ async function deleteUser(id) {
 }
 
 //KODE BARU untuk verifikasi email
-function verifyEmail(email){
+function verifyEmail(email) {
   return usersRepository.checkEmail(email);
+}
+
+//KODE BARU untuk mengubah password
+async function changePassword(id, newPassword) {
+  const user = await usersRepository.getUser(id);
+  const hashedPassword = await hashPassword(newPassword);
+  // User not found
+  if (!user) {
+    return null;
+  }
+
+  try {
+    await usersRepository.changePassword(id, hashedPassword);
+  } catch (err) {
+    return null;
+  }
+
+  return true;
+}
+
+//KODE BARU untuk verifikasi password
+function verifyPassword(id, password) {
+  return usersRepository.checkPassword(id, password);
 }
 
 module.exports = {
@@ -119,4 +142,6 @@ module.exports = {
   updateUser,
   deleteUser,
   verifyEmail, //KODE BARU
+  changePassword, //KODE BARU
+  verifyPassword, //KODE BARU
 };
